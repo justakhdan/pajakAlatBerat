@@ -1,0 +1,44 @@
+<select name="merekAlat">
+    <?php while($row = mysqli_fetch_array($merek)):;?>
+    <option value="<?php echo $row[1]; ?>"><?php echo $row[1]; ?></option>
+   	<?php endwhile;?>
+
+if(isset($_POST['cari']))
+{
+	
+	}
+	else{
+	$query = "SELECT * FROM alatberat ";
+	$hasil = filterTable($query);
+		}
+	
+function filterTable($query){
+	$filter = mysqli_query($conn, $query);
+	return $filter;
+	}
+
+<?php while ($row1 = mysqli_fetch_array($hasil)):;?>
+    <tr>
+    <td><?php echo $row1['merek'];?></td>
+    <td><?php echo $row1['type'];?></td>
+    <td><?php echo $row1['tahun'];?></td>
+    <td><?php echo $row1['njkb'];?></td>
+    </tr>
+    <?php endwhile;?>
+
+
+
+
+if(isset($_POST['cari'])){
+	$namaMerk = $_POST['namaMerk'];
+	$query ="select * from 'alatberat' where concat ('type') LIKE '%".$namaMerk."%'";
+	}
+else{
+	$query ="select * from 'alatberat'";
+	$searchResult = filterTable($query);
+	}
+
+function filterTable($query){
+	$alat = mysqli_query($conn, $query);
+	return $alat;
+	}
